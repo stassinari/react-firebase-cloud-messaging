@@ -2,13 +2,24 @@ import { useState } from "react";
 import { Button, Toast } from "react-bootstrap";
 import "./App.css";
 import reactLogo from "./assets/react.svg";
-import { fetchToken } from "./firebase";
+import { fetchToken, onMessageListener } from "./firebase";
 
 function App() {
   const [show, setShow] = useState(false);
-
+  const [notification, setNotification] = useState({ title: "", body: "" });
   const [isTokenFound, setTokenFound] = useState(false);
   fetchToken(setTokenFound);
+
+  onMessageListener()
+    .then((payload: any) => {
+      setShow(true);
+      setNotification({
+        title: payload.notification.title,
+        body: payload.notification.body,
+      });
+      console.log(payload);
+    })
+    .catch((err) => console.log("failed: ", err));
 
   return (
     <>
@@ -22,14 +33,15 @@ function App() {
           position: "absolute",
           top: 20,
           right: 20,
+          minWidth: 200,
         }}
       >
         <Toast.Header>
           <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
-          <strong className="mr-auto">Notification</strong>
-          <small>12 mins ago</small>
+          <strong className="mr-auto">{notification.title}</strong>
+          <small>just now</small>
         </Toast.Header>
-        <Toast.Body>There are some new updates that you might love!</Toast.Body>
+        <Toast.Body>{notification.body}</Toast.Body>
       </Toast>
       <div className="App">
         <div>
