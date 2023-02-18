@@ -2,6 +2,14 @@
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
 
+// just for demo
+self.addEventListener("install", event => {
+  console.log("Service worker installed");
+});
+self.addEventListener("activate", event => {
+  console.log("Service worker activated");
+});
+
 // Initialize the Firebase app in the service worker by passing the generated config
 var firebaseConfig = {
   apiKey: "YOUR_API_KEY",
