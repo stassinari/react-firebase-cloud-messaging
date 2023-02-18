@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { Button, Toast } from "react-bootstrap";
-import "./App.css";
 import reactLogo from "./assets/react.svg";
 import { fetchToken, onMessageListener } from "./firebase";
 
@@ -22,7 +20,7 @@ function App() {
 
   return (
     <>
-      <Toast
+      {/* <Toast
         onClose={() => setShow(false)}
         show={show}
         delay={3000}
@@ -41,11 +39,11 @@ function App() {
           <small>just now</small>
         </Toast.Header>
         <Toast.Body>{notification.body}</Toast.Body>
-      </Toast>
+      </Toast> */}
       <div className="App">
-        <Button onClick={() => fetchToken(setTokenFound)}>
+        <button onClick={() => fetchToken(setTokenFound)}>
           I want to receive notifications!
-        </Button>
+        </button>
         <div>
           {isTokenFound
             ? "Notification permission enabled 👍🏻"
@@ -59,9 +57,9 @@ function App() {
             <img src={reactLogo} className="logo react" alt="React logo" />
           </a>
         </div>
-        <h1>Vite + React</h1>
+        <h1 className="text-3xl font-bold underline">Vite + React</h1>
         <div className="card">
-          <Button onClick={() => setShow(true)}>Show Toast</Button>
+          <button onClick={() => setShow(true)}>Show Toast</button>
         </div>
         <p className="read-the-docs">
           Click on the Vite and React logos to learn more
