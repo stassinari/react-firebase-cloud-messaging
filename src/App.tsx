@@ -1,18 +1,24 @@
+import { MessagePayload, NotificationPayload } from "firebase/messaging";
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import { fetchToken, onMessageListener } from "./firebase";
 
+type Notification = NotificationPayload;
+
 function App() {
   const [show, setShow] = useState(false);
-  const [notification, setNotification] = useState({ title: "", body: "" });
+  const [notification, setNotification] = useState<Notification>({
+    title: "",
+    body: "",
+  });
   const [isTokenFound, setTokenFound] = useState(false);
 
   onMessageListener()
-    .then((payload: any) => {
+    .then((payload: MessagePayload) => {
       setShow(true);
       setNotification({
-        title: payload.notification.title,
-        body: payload.notification.body,
+        title: payload.notification?.title,
+        body: payload.notification?.body,
       });
       console.log(payload);
     })
