@@ -8,4 +8,4 @@ This is a React app created to demonstrate how to use Firebase Cloud Messaging.
 - [ ] Make it a proper PWA
   - [ ] Add a manifest, icons, etc.
   - [ ] Try to add reloading when a new version is available
-- [ ] Try to reqwrite `firebase-messaging-sw.js` to use Firebase v9
+- [ ] Try to rewrite `firebase-messaging-sw.js` to use Firebase v9
