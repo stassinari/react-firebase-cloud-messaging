@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "styles": "npx tailwindcss -o dist/output.css --minify",
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && npm run styles",
     "preview": "vite preview"
   },
   "dependencies": {
