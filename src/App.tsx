@@ -3,6 +3,7 @@ import { PropsWithChildren, useState } from "react";
 import { toast, ToastContainer, ToastContentProps } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchToken, onMessageListener } from "./firebase";
+import { ReloadPrompt } from "./ReloadPrompt";
 
 type NotificationProps = {
   notificationProps: NotificationPayload;
@@ -39,7 +40,6 @@ export const App = () => {
     <div className="mx-auto max-w-lg px-4 pt-12">
       <h1 className="text-2xl font-bold mb-4">React Firebase Messaging PWA</h1>
       <ToastContainer />
-
       <div className="bg-blue-200 p-4 rounded-lg">
         <Button onClick={() => fetchToken(setTokenFound)}>
           I want to receive notifications!
@@ -56,7 +56,7 @@ export const App = () => {
           within a React application bootstrapped with Vite + TypeScript.
         </p>
 
-        <p>This is built with:</p>
+        <p>Built with:</p>
 
         <ul className="my-2">
           <li>
@@ -98,6 +98,8 @@ export const App = () => {
           Show an example toast
         </ButtonSecondary>
       </div>
+      <p>Ch-ch-ch-ch-ch-change</p>
+      <ReloadPrompt />
     </div>
   );
 };
@@ -106,7 +108,7 @@ interface ButtonProps extends PropsWithChildren {
   onClick: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, onClick }) => (
+export const Button: React.FC<ButtonProps> = ({ children, onClick }) => (
   <button
     type="button"
     onClick={onClick}
