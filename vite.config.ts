@@ -9,6 +9,7 @@ export default defineConfig({
     VitePWA({
       registerType: "prompt",
       strategies: "injectManifest",
+      srcDir: "src",
       filename: "firebase-messaging-sw.js",
       devOptions: {
         enabled: true,
