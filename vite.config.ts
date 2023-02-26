@@ -8,10 +8,10 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "prompt",
+      strategies: "injectManifest",
       devOptions: {
         enabled: true,
       },
-
       includeAssets: ["fire.svg", "assets/apple-icon-180.png"],
       manifest: {
         name: "react-firebase-cloud-messaging",
