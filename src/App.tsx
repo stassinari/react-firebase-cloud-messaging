@@ -98,7 +98,7 @@ export const App = () => {
           Show an example toast
         </ButtonSecondary>
       </div>
-      <p>Firebase works, but does reloading as well??!</p>
+      <p>Just a change for fun</p>
       <ReloadPrompt />
     </div>
   );
