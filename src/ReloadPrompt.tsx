@@ -34,7 +34,6 @@ export const ReloadPrompt = () => {
           {needRefresh && (
             <Button onClick={() => updateServiceWorker(true)}>Reload</Button>
           )}
-          <Button onClick={() => close()}>Close</Button>
         </div>
       )}
     </>
