@@ -28,7 +28,7 @@ const firebaseApp = initializeApp(firebaseConfig);
 const analytics = getAnalytics(firebaseApp);
 const messaging = getMessaging(firebaseApp);
 
-export const fetchToken = (setTokenFound: (arg0: boolean) => void) => {
+export const fetchToken = (setToken: (token: string | null) => void) => {
   return getToken(messaging, {
     vapidKey:
       "BIEPZ9-xHBiXpjMa3_9kEard5xH0Ad3aNxnH5RxCCNNIgQ9dPDDZXjvgJv06o_57JpfnZMBE8kCVR0AiVPjCaLw",
@@ -36,14 +36,14 @@ export const fetchToken = (setTokenFound: (arg0: boolean) => void) => {
     .then((currentToken) => {
       if (currentToken) {
         console.log("current token for client: ", currentToken);
-        setTokenFound(true);
+        setToken(currentToken);
         // Track the token -> client mapping, by sending to backend server
         // show on the UI that permission is secured
       } else {
         console.log(
           "No registration token available. Request permission to generate one."
         );
-        setTokenFound(false);
+        setToken(null);
         // shows on the UI that permission is required
       }
     })

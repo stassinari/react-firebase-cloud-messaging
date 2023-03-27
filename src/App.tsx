@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { MessagePayload, NotificationPayload } from "firebase/messaging";
 import { PropsWithChildren, useState } from "react";
 import { toast, ToastContainer, ToastContentProps } from "react-toastify";
@@ -20,7 +21,7 @@ const Notification = ({
   </>
 );
 export const App = () => {
-  const [isTokenFound, setTokenFound] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
 
   onMessageListener()
     .then((payload: MessagePayload) => {
@@ -41,14 +42,32 @@ export const App = () => {
       <h1 className="text-2xl font-bold mb-4">React Firebase Messaging PWA</h1>
       <ToastContainer />
       <div className="bg-blue-200 p-4 rounded-lg">
-        <Button onClick={() => fetchToken(setTokenFound)}>
+        <Button onClick={() => fetchToken(setToken)}>
           I want to receive notifications!
         </Button>
-        <p>
-          {isTokenFound
+        <p className="mt-2">
+          {token
             ? "Notification permission enabled 👍🏻"
             : "Need notification permission ❗️"}
         </p>
+
+        {token && (
+          <div className="flex mt-2 py-1 px-2 rounded bg-slate-100 items-center">
+            <span className="flex-1 whitespace-nowrap overflow-hidden text-ellipsis mr-2">
+              {token}
+            </span>
+            <Button
+              // className="whitespace-nowrap bg-"
+              size="small"
+              variant="secondary"
+              onClick={() => {
+                navigator.clipboard.writeText(token);
+              }}
+            >
+              Copy token
+            </Button>
+          </div>
+        )}
       </div>
       <div className="my-4">
         <p>
@@ -83,7 +102,8 @@ export const App = () => {
         </ul>
       </div>
       <div>
-        <ButtonSecondary
+        <Button
+          variant="secondary"
           onClick={() =>
             toast(
               <Notification
@@ -96,9 +116,8 @@ export const App = () => {
           }
         >
           Show an example toast
-        </ButtonSecondary>
+        </Button>
       </div>
-      <p>Just a change for fun</p>
       <ReloadPrompt />
     </div>
   );
@@ -106,23 +125,28 @@ export const App = () => {
 
 interface ButtonProps extends PropsWithChildren {
   onClick: () => void;
+  variant?: "primary" | "secondary";
+  size?: "default" | "small";
 }
 
-export const Button: React.FC<ButtonProps> = ({ children, onClick }) => (
+export const Button: React.FC<ButtonProps> = ({
+  children,
+  onClick,
+  variant = "primary",
+  size = "default",
+}) => (
   <button
     type="button"
     onClick={onClick}
-    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-  >
-    {children}
-  </button>
-);
-
-const ButtonSecondary: React.FC<ButtonProps> = ({ children, onClick }) => (
-  <button
-    type="button"
-    onClick={onClick}
-    className="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+    className={clsx(
+      size === "default" && "py-2.5 px-5",
+      "text-sm font-medium focus:outline-none rounded-lg",
+      size === "small" && "py-1 px-2 font-normal text-xs",
+      variant === "primary" &&
+        "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-blue-800",
+      variant === "secondary" &&
+        "text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
+    )}
   >
     {children}
   </button>
