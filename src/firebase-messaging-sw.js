@@ -45,10 +45,11 @@ const messaging = firebase.messaging();
 messaging.onBackgroundMessage(function (payload) {
   console.log("Received background message ", payload);
 
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-    body: payload.notification.body,
-  };
-
-  self.registration.showNotification(notificationTitle, notificationOptions);
+  // Apparently the below code duplicates the notification
+  // Explanation here: https://stackoverflow.com/a/74959508, and fix just above
+  // const notificationTitle = payload.notification.title;
+  // const notificationOptions = {
+  //   body: payload.notification.body,
+  // };
+  // self.registration.showNotification(notificationTitle, notificationOptions);
 });
